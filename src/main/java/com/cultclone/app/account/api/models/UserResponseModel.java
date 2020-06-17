@@ -42,4 +42,9 @@ public class UserResponseModel {
 		this.userId = userId;
 	}
 
+	@Override
+	public String toString() {
+		return "UserResponseModel [id=" + id + ", name=" + name + ", email=" + email + ", userId=" + userId + "]";
+	}
+
 }

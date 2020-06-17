@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseModel getUser(String userId) {
-		UserResponseModel userResponseModel = new UserResponseModel();
 		UserEntity userEntity = userRepo.findByUserId(userId);
+		UserResponseModel userResponseModel = new UserResponseModel();
 		BeanUtils.copyProperties(userEntity, userResponseModel);
 		return userResponseModel;
 	}

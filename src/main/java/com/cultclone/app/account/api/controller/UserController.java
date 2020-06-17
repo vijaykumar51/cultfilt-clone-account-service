@@ -2,7 +2,6 @@ package com.cultclone.app.account.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,7 @@ import com.cultclone.app.account.api.models.UserResponseModel;
 import com.cultclone.app.account.api.services.UserService;
 
 @RestController
-@RequestMapping(value = "api/user", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "api/user")
 public class UserController {
 
 	@Autowired
@@ -28,7 +27,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(userRecord);
 	}
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@PostMapping
 	public ResponseEntity<UserResponseModel> saveUser(@RequestBody UserRequestModel userRequestModel) {
 		UserResponseModel userResponseModel = userService.saveUser(userRequestModel);
 		return ResponseEntity.status(HttpStatus.OK).body(userResponseModel);
