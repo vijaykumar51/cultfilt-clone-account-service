@@ -23,7 +23,7 @@ public class UserController {
 
 	@GetMapping(value = "/{userId}")
 	public ResponseEntity<UserResponseModel> getUser(@PathVariable String userId) {
-		UserResponseModel userRecord = userService.getUser(userId);
+		UserResponseModel userRecord = userService.getUserById(userId);
 		return ResponseEntity.status(HttpStatus.OK).body(userRecord);
 	}
 

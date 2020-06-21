@@ -9,7 +9,10 @@ public interface UserService {
 
 	public UserResponseModel saveUser(UserRequestModel userRequestModel);
 
-	public UserResponseModel getUser(String userId);
+	public UserResponseModel getUserById(String user);
+
+	public UserResponseModel getUserByEmail(String emailId);
 
 	public List<UserResponseModel> getAllUser();
+
 }

@@ -23,11 +23,22 @@ public class UserServiceImpl implements UserService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public UserResponseModel getUser(String userId) {
+	public UserResponseModel getUserById(String userId) {
 		UserEntity userEntity = userRepo.findByUserId(userId);
 		UserResponseModel userResponseModel = new UserResponseModel();
 		BeanUtils.copyProperties(userEntity, userResponseModel);
 		return userResponseModel;
+	}
+
+	@Override
+	public UserResponseModel getUserByEmail(String email) {
+		UserEntity userEntity = userRepo.findByEmail(email);
+		if (userEntity != null) {
+			UserResponseModel userResponseModel = new UserResponseModel();
+			BeanUtils.copyProperties(userEntity, userResponseModel);
+			return userResponseModel;
+		}
+		return null;
 	}
 
 	@Override
@@ -44,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		return userResponseModel;
 	}
 
+	@Override
 	public List<UserResponseModel> getAllUser() {
 
 		List<UserEntity> users = userRepo.findAll();
