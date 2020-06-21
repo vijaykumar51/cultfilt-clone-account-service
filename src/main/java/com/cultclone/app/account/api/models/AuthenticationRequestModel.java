@@ -1,6 +1,6 @@
 package com.cultclone.app.account.api.models;
 
-public class LoginRequestModel {
+public class AuthenticationRequestModel {
 
 	private String email;
 
