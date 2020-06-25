@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,12 +16,13 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import io.jsonwebtoken.Jwts;
 
-public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
+public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-	private String SECRET_KEY = "klj21xp09sdz2l04l";
+	private Environment env;
 
-	public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, Environment env) {
 		super(authenticationManager);
+		this.env = env;
 	}
 
 	@Override
@@ -43,9 +45,16 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 		String authHeader = request.getHeader("Authorization");
 		String token = authHeader.replace("Bearer", "");
 		System.out.println("token => [%s]" + token);
-		String email = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
-		System.out.println("email => [%s]" + email);
-		return email != null ? new UsernamePasswordAuthenticationToken(email, null, new ArrayList<>()) : null;
+		String email = null;
+		try {
+			email = Jwts.parser().setSigningKey(env.getProperty("token.secret")).parseClaimsJws(token).getBody()
+					.getSubject();
+			System.out.println("email => [%s]" + email);
+			return new UsernamePasswordAuthenticationToken(email, null, new ArrayList<>());
+		} catch (Exception e) {
+			System.out.println("Exception while parsing token => [%s]" + e.getMessage());
+		}
+		return null;
 
 	}
 

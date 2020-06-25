@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cultclone.app.account.api.models.UserRequestModel;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public UserResponseModel getUserById(String userId) {
@@ -45,6 +49,7 @@ public class UserServiceImpl implements UserService {
 	public UserResponseModel saveUser(UserRequestModel userRequestModel) {
 		UserEntity userEntity = new UserEntity();
 		BeanUtils.copyProperties(userRequestModel, userEntity);
+		userEntity.setPassword(bCryptPasswordEncoder.encode(userRequestModel.getPassword()));
 		userEntity.setUserId(userRequestModel.getEmail());
 		System.out.println("userEntity" + userEntity.toString());
 		userEntity = userRepo.save(userEntity);
