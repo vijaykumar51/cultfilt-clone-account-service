@@ -14,18 +14,30 @@ import com.cultclone.app.account.api.models.UserResponseModel;
 import com.cultclone.app.account.api.models.data.UserEntity;
 import com.cultclone.app.account.api.repository.UserRepository;
 
+/**
+ * The Class UserServiceImpl.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
+	/** The user repo. */
 	@Autowired
 	private UserRepository userRepo;
 
+	/** The model mapper. */
 	@Autowired
 	private ModelMapper modelMapper;
 
+	/** The b crypt password encoder. */
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	/**
+	 * Gets the user by id.
+	 *
+	 * @param userId the user id
+	 * @return the user by id
+	 */
 	@Override
 	public UserResponseModel getUserById(String userId) {
 		UserEntity userEntity = userRepo.findByUserId(userId);
@@ -34,6 +46,12 @@ public class UserServiceImpl implements UserService {
 		return userResponseModel;
 	}
 
+	/**
+	 * Gets the user by email.
+	 *
+	 * @param email the email
+	 * @return the user by email
+	 */
 	@Override
 	public UserResponseModel getUserByEmail(String email) {
 		UserEntity userEntity = userRepo.findByEmail(email);
@@ -45,6 +63,12 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	/**
+	 * Save user.
+	 *
+	 * @param userRequestModel the user request model
+	 * @return the user response model
+	 */
 	@Override
 	public UserResponseModel saveUser(UserRequestModel userRequestModel) {
 		UserEntity userEntity = new UserEntity();
@@ -60,14 +84,15 @@ public class UserServiceImpl implements UserService {
 		return userResponseModel;
 	}
 
+	/**
+	 * Gets the all user.
+	 *
+	 * @return the all user
+	 */
 	@Override
 	public List<UserResponseModel> getAllUser() {
-
 		List<UserEntity> users = userRepo.findAll();
-		List<UserResponseModel> usersResponse = users.stream()
-				.map(user -> modelMapper.map(user, UserResponseModel.class)).collect(Collectors.toList());
-
-		return usersResponse;
+		return users.stream().map(user -> modelMapper.map(user, UserResponseModel.class)).collect(Collectors.toList());
 	}
 
 }

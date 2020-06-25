@@ -16,15 +16,34 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import io.jsonwebtoken.Jwts;
 
+/**
+ * The Class JwtAuthorizationFilter.
+ */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
+	/** The env. */
 	private Environment env;
 
+	/**
+	 * Instantiates a new jwt authorization filter.
+	 *
+	 * @param authenticationManager the authentication manager
+	 * @param env                   the env
+	 */
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, Environment env) {
 		super(authenticationManager);
 		this.env = env;
 	}
 
+	/**
+	 * Do filter internal.
+	 *
+	 * @param request  the request
+	 * @param response the response
+	 * @param chain    the chain
+	 * @throws IOException      Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
+	 */
 	@Override
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -41,6 +60,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	}
 
+	/**
+	 * Gets the authentication.
+	 *
+	 * @param request the request
+	 * @return the authentication
+	 */
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		String authHeader = request.getHeader("Authorization");
 		String token = authHeader.replace("Bearer", "");

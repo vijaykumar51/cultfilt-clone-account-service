@@ -17,6 +17,11 @@ public class AdminUserController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Gets the all users.
+	 *
+	 * @return the all users
+	 */
 	@GetMapping(value = "/admin/api/users")
 	public ResponseEntity<List<UserResponseModel>> getAllUsers() {
 		List<UserResponseModel> users = userService.getAllUser();

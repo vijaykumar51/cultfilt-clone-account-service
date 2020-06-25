@@ -12,12 +12,23 @@ import org.springframework.stereotype.Service;
 import com.cultclone.app.account.api.models.data.UserEntity;
 import com.cultclone.app.account.api.repository.UserRepository;
 
+/**
+ * The Class UserAuthService.
+ */
 @Service
 public class UserAuthService implements UserDetailsService {
 
+	/** The user repo. */
 	@Autowired
 	UserRepository userRepo;
 
+	/**
+	 * Load user by username.
+	 *
+	 * @param username the username
+	 * @return the user details
+	 * @throws UsernameNotFoundException the username not found exception
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("inside loadUserByUsername [%s]" + username);
