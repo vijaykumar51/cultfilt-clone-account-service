@@ -5,14 +5,14 @@ Currently, user has to login using email. That can be changed to mobile number o
 
 ================
 
-**User Endpoints**:
-POST /api/user ==> User Registration
+**User Endpoints**:<br>
+POST /api/user ==> User Registration<br>
 GET /api/user/{userId} ==> Get specific user details. (TODO: need to be made secure so that other users can't access other user's details) 
 
-**Admin Endpoints**:
+**Admin Endpoints**:<br>
 GET /admin/api/users ==> Get list of all users
 
-**Token endpoints**:
+**Token endpoints**:<br>
 POST /auth/get-token ==> Get token based on email and password credentials
 
 ================
