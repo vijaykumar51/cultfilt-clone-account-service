@@ -21,17 +21,24 @@ POST /auth/get-token ==> Get token based on email and password credentials
 
 ================
 
-User table schema. It will have some changes as the project grows
-
-  Column  |          Type          | Collation | Nullable |             Default
+ Column  |          Type          | Collation | Nullable |             Default
+ 
 ----------+------------------------+-----------+----------+----------------------------------
+
  id       | integer                |           | not null | nextval('user_id_seq'::regclass)
+ 
  email    | character varying(50)  |           | not null |
+ 
  name     | character varying(50)  |           | not null |
+ 
  password | character varying(100) |           | not null |
+ 
  user_id  | character varying(255) |           | not null |
+ 
  is_coach | boolean                |           |          | false
+ 
 Indexes:
+
     "user_email_key" UNIQUE CONSTRAINT, btree (email)
 
 
